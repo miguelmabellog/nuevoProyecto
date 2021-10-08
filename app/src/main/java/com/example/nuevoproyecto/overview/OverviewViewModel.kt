@@ -15,6 +15,10 @@ class OverviewViewModel:ViewModel() {
     val posts: LiveData<List<PostEntity>>
         get() = _posts
 
+    private val _navigateToSelectedItem = MutableLiveData<PostEntity>()
+    val navigateToSelectedItem: LiveData<PostEntity>
+        get() = _navigateToSelectedItem
+
 
     init {
         getPosts()
@@ -28,6 +32,15 @@ class OverviewViewModel:ViewModel() {
                 Log.i("Error","Error al cargar posts")
             }
         }
+    }
+
+    fun displayItemDetails(post: PostEntity) {
+        _navigateToSelectedItem.value = post
+    }
+
+    fun displayItemDetailsComplete() {
+        _navigateToSelectedItem.value = null
+        val a="a"
     }
 
 }
