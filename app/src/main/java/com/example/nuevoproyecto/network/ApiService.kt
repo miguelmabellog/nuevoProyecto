@@ -26,7 +26,10 @@ private val retrofit = Retrofit.Builder()
 interface ApiService {
 
     @GET("posts")
-    suspend fun getProperties(): List<PostEntity>
+    suspend fun getPosts(): List<PostEntity>
+
+    @GET("users")
+    suspend fun  getUsers(@Query("id") type: Int): List<User>
 }
 
 

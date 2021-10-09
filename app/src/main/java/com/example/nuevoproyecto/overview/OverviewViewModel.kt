@@ -27,7 +27,7 @@ class OverviewViewModel:ViewModel() {
         viewModelScope.launch {
 
             try {
-                _posts.value = MyApi.retrofitService.getProperties()
+                _posts.value = MyApi.retrofitService.getPosts()
             } catch (e: Exception) {
                 Log.i("Error","Error al cargar posts")
             }
@@ -40,7 +40,7 @@ class OverviewViewModel:ViewModel() {
 
     fun displayItemDetailsComplete() {
         _navigateToSelectedItem.value = null
-        val a="a"
+
     }
 
 }
