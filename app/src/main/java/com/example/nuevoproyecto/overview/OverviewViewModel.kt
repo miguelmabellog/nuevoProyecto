@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nuevoproyecto.network.MyApi
 import com.example.nuevoproyecto.network.PostEntity
+import com.example.nuevoproyecto.utils.Event
 import kotlinx.coroutines.launch
 
 class OverviewViewModel:ViewModel() {
@@ -15,15 +16,24 @@ class OverviewViewModel:ViewModel() {
     val posts: LiveData<List<PostEntity>>
         get() = _posts
 
+    fun clearPost(){
+        _posts.value=mutableListOf<PostEntity>()
+    }
+
     private val _navigateToSelectedItem = MutableLiveData<PostEntity>()
     val navigateToSelectedItem: LiveData<PostEntity>
         get() = _navigateToSelectedItem
 
 
+    private val _eventGetPost = MutableLiveData<Event<Unit>>()
+    val eventGetPost: LiveData<Event<Unit>>
+        get() = _eventGetPost
+
     init {
-        getPosts()
+        _eventGetPost.value= Event(Unit)
     }
-    private fun getPosts() {
+
+    fun getPosts() {
         viewModelScope.launch {
 
             try {

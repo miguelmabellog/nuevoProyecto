@@ -25,6 +25,7 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val selectedPost = DetailFragmentArgs.fromBundle(requireArguments()).selectedPost
+
         val viewModelFactory = DetailViewModelFactory(selectedPost, application)
         viewModel=ViewModelProvider(
             this, viewModelFactory).get(DetailViewModel::class.java)
