@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.nuevoproyecto.R
 import com.example.nuevoproyecto.databinding.FragmentOverviewBinding
 import com.example.nuevoproyecto.network.PostEntity
@@ -19,6 +20,9 @@ class OverviewFragment : Fragment() {
 
     private val viewModel: OverviewViewModel by activityViewModels()
 
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,7 +31,24 @@ class OverviewFragment : Fragment() {
         binding.lifecycleOwner=this
 
         binding.viewModel=viewModel
-        binding.adapterGrid.adapter=GridAdapter(GridAdapter.OnClickListener({
+
+        val overviewAdapter = OverviewAdapter (OverviewAdapter.OnClickListener({
+            viewModel.displayItemDetails(it)
+        },{
+            it.favorite = !it.favorite
+
+        }))
+
+        binding.adapterGrid.adapter=overviewAdapter
+
+        viewModel.posts.observe(viewLifecycleOwner, Observer {
+            overviewAdapter.submitList(it)
+        })
+
+        ItemTouchHelper(ItemSwipeHandler(overviewAdapter) { removeItem(it) }).attachToRecyclerView(binding.adapterGrid)
+
+
+        /*binding.adapterGrid.adapter=GridAdapter(GridAdapter.OnClickListener({
             viewModel.displayItemDetails(it)
         },{
             if(it.favorite){
@@ -38,7 +59,9 @@ class OverviewFragment : Fragment() {
 
         })
 
-        )
+        )*/
+
+
 
         viewModel.navigateToSelectedItem.observe(viewLifecycleOwner, Observer {
             if ( null != it ) {
@@ -66,6 +89,11 @@ class OverviewFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun removeItem(product: PostEntity) {
+        //products.remove(product)
+
     }
 
 

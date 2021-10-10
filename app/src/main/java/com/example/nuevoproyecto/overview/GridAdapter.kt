@@ -3,6 +3,7 @@ package com.example.nuevoproyecto.overview
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,8 @@ import kotlinx.android.synthetic.main.grid_view_item.view.*
 
 class GridAdapter( private val onClickListener: OnClickListener ) :
     ListAdapter<PostEntity,
-            GridAdapter.PostsViewHolder>(DiffCallback) {
+            GridAdapter.PostsViewHolder>(DiffCallback)  {
+
 
     class OnClickListener(val clickListener: (postEntity:PostEntity) -> Unit,
     val clickFavorite:(postEntity:PostEntity)->Unit) {
@@ -70,6 +72,7 @@ class GridAdapter( private val onClickListener: OnClickListener ) :
         }
         holder.bind(post)
     }
+
 
 
 }

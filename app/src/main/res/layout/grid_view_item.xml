@@ -32,7 +32,7 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_favorite_border" />
+             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="200dp"
